@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    mavenLocal()
+    flatDir {
+        dirs 'libs'
+    }
+
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -10,6 +19,28 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g" //specify the heap size for the dex process
+        preDexLibraries = false
+
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+    }
+
+
+    aaptOptions {
+        cruncherEnabled = false
     }
     buildTypes {
         release {
@@ -24,6 +55,31 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+
     compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+
+
+
+
+    compile 'com.google.firebase:firebase-database:10.0.1'
+
+    compile 'com.google.firebase:firebase-auth:10.0.1'
+
+    compile 'com.google.firebase:firebase-core:10.0.1'
+    compile 'com.google.android.gms:play-services-auth:10.0.1'
+
+    compile 'com.google.firebase:firebase-storage:10.0.1'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+    compile 'com.google.firebase:firebase-config:10.0.1'
+    compile 'com.firebaseui:firebase-ui-auth:1.0.1'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.firebase:firebase-client-android:2.3.1'
+
     testCompile 'junit:junit:4.12'
 }
+apply plugin: 'com.google.gms.google-services'
